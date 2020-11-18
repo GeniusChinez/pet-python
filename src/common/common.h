@@ -2,7 +2,6 @@
 #include <iostream>
 #include <sstream>
 #include <string>
-#include "utf8.h"
 
 /**
  * @brief      Acts as the base case for the other 'printToStream' function.
@@ -55,3 +54,6 @@ std::string formatAsString(Args&&... args) {
 std::string convertCodepointToHex(uint32_t codePoint) {
     return formatAsString("0x", std::hex, codePoint);
 }
+
+#include "utf8.h"
+#include "io.h"
