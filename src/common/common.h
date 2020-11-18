@@ -2,6 +2,7 @@
 #include <iostream>
 #include <sstream>
 #include <string>
+#include "utf8.h"
 
 /**
  * @brief      Acts as the base case for the other 'printToStream' function.
