@@ -57,3 +57,4 @@ std::string convertCodepointToHex(uint32_t codePoint) {
 
 #include "utf8.h"
 #include "io.h"
+#include "errorreporter.h"
