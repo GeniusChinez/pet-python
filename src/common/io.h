@@ -73,3 +73,18 @@ std::string readFile(const std::string& fileName) {
     readFileDataIntoBuffer(fileName, buffer);
     return buffer;
 }
+
+struct Console {
+    static void write() {}
+
+    template <typename T, typename ...Rest>
+    static void write(const T& data, Rest&&... rest) {
+        std::cout << data;
+        Console::write(std::forward<Rest>(rest)...);
+    }
+
+    template <typename ...Args>
+    static void writeLine(Args&&... args) {
+        Console::write(std::forward<Args>(args)..., '\n');
+    }
+};
