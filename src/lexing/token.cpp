@@ -128,3 +128,25 @@ std::string toString(const Token& token) {
     std::string value = "Token(value='" + token.value + "')";
     return value;
 }
+
+bool isAssignment(TokenKind kind) {
+    switch (kind) {
+    case TokenKind::Assignment:
+    case TokenKind::AssignmentLogicalAnd:
+    case TokenKind::AssignmentLogicalOr:
+    case TokenKind::AssignmentLogicalXor:
+    case TokenKind::AssignmentLogicalLeftShift:
+    case TokenKind::AssignmentLogicalRightShift:
+    case TokenKind::AssignmentArithmeticAdd:
+    case TokenKind::AssignmentArithmeticSub:
+    case TokenKind::AssignmentArithmeticMul:
+    case TokenKind::AssignmentArithmeticDiv:
+    case TokenKind::AssignmentArithmeticFloorDiv:
+    case TokenKind::AssignmentArithmeticMod:
+    case TokenKind::AssignmentArithmeticPow:
+    case TokenKind::AssignmentArithmeticAt:
+        return true;
+    default:
+        return false;
+    }
+}
