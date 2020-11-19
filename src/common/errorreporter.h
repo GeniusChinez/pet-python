@@ -30,7 +30,7 @@ struct ErrorReporter {
     }
 
     template <typename ...Args>
-    void reportFatalError(Args&&... args) {
+    static void reportFatalError(Args&&... args) {
         reportError(std::forward<Args>(args)...);
         quit();
     }

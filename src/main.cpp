@@ -29,7 +29,16 @@ void quitIfErrorsWereMet() {
 }
 
 void test() {
-    
+    Lexer lexer;
+    assert(lexer.useFile("sample.py"));
+
+    Token token;
+    lexer.readToken(token);
+
+    while (token.kind != TokenKind::EndOfFile) {
+        Console::writeLine(toString(token.kind));
+        lexer.readToken(token);
+    }
 }
 
 int main(int argc, char const *argv[]) {

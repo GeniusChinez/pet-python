@@ -3,6 +3,14 @@
 #include <cassert>
 #include "token.h"
 
+TokenKind getKindOfWord(const std::string& value) {
+    if (auto it = stringTokenMap.find(value); 
+        it != std::end(stringTokenMap)) {
+        return it->second;
+    }
+    return TokenKind::Identifier;
+}
+
 const char* toString(TokenKind kind) {
     switch (kind) {
     case TokenKind::None: return "<None>";
