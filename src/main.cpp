@@ -6,6 +6,7 @@ void quitIfErrorsWereMet();
 
 #include "common/common.h"
 #include "lexing/lexer.h"
+#include "ast/ast.h"
 
 void quit() {
     Console::write(
@@ -28,7 +29,7 @@ void quitIfErrorsWereMet() {
     }
 }
 
-void test() {
+void testLexer() {
     Lexer lexer;
     assert(lexer.useFile("sample.py"));
 
@@ -39,6 +40,10 @@ void test() {
         Console::writeLine(toString(token.kind));
         lexer.readToken(token);
     }
+}
+
+void test() {
+    //testLexer();
 }
 
 int main(int argc, char const *argv[]) {
