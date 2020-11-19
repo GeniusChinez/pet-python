@@ -29,13 +29,7 @@ void quitIfErrorsWereMet() {
 }
 
 void test() {
-    Reader r;
-    assert(r.openFile("main.cpp"));
-
-    uint32_t c;
-    while((c = r.getCharacter())) {
-        printf("%c\n", (char)c);
-    }
+    
 }
 
 int main(int argc, char const *argv[]) {
