@@ -715,7 +715,7 @@ ExprPtr Parser::parseMultiplicativeExpr() {
         || matchToken(TokenKind::ArithmeticDiv)
         || matchToken(TokenKind::ArithmeticFloorDiv)
         || matchToken(TokenKind::ArithmeticMod)
-        || matchToken(TokenKind::At) // matrix multiplication
+        || ((not linesChanged) && matchToken(TokenKind::At)) // matrix multiplication
     ) {
         auto temp = std::make_shared<BinaryExpr>(expr->location);
         temp->lhs = expr;
