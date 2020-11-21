@@ -105,6 +105,7 @@ private:
 
     bool linesChanged {false};
     int indentationScheme {0};
+    bool parsingParenthesizedExpr = false;
 
     Lexer* lexer;
 };

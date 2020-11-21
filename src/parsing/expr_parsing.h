@@ -160,6 +160,7 @@ ExprPtr Parser::parseParenthesizedExpr() {
     ExprList list;
 
     bool danglingComma = false;
+    this->parsingParenthesizedExpr = true;
 
     while (not skipOptionalToken(TokenKind::ClosingRoundBracket)) {
         danglingComma = false;
@@ -181,11 +182,15 @@ ExprPtr Parser::parseParenthesizedExpr() {
             expr->compFor = parseComprehensionFor();
 
             skipRequiredToken(TokenKind::ClosingRoundBracket);
+
+            this->parsingParenthesizedExpr = false;
             return expr;
         }
 
         danglingComma = true;
     }
+
+    this->parsingParenthesizedExpr = false;
 
     if (danglingComma) {
         auto noneExpr = std::make_shared<Expr>(
@@ -904,7 +909,10 @@ ExprPtr Parser::parseLambdaExpr() {
     if (not matchToken(TokenKind::KeywordLambda)) {
         auto expr = parseBooleanOrExpr();
 
-        if ((not linesChanged) && skipOptionalToken(TokenKind::KeywordIf)) {
+        if (
+            (parsingParenthesizedExpr || not linesChanged) 
+            && skipOptionalToken(TokenKind::KeywordIf)
+        ) {
             auto temp = std::make_shared<IfExpr>(expr->location);
             temp->cond = parseBooleanOrExpr();
             temp->thenValue = expr;
