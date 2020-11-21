@@ -7,6 +7,7 @@ enum class ExprKind {
     IntegerLiteral,
     BooleanLiteral,
     FloatLiteral,
+    If,
     ListDisplay,
     SetDisplay,
     TupleDisplay,
@@ -203,4 +204,12 @@ struct LambdaExpr : public Expr {
         : Expr(location, ExprKind::Lambda) {}
     ParameterList parameterList;
     ExprPtr expr;
+};
+
+struct IfExpr : public Expr {
+    IfExpr(const Location& location)
+        : Expr(location, ExprKind::If) {}
+    ExprPtr cond;
+    ExprPtr thenValue;
+    ExprPtr elseValue;
 };

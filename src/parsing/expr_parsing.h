@@ -892,7 +892,20 @@ ExprPtr Parser::parseBooleanOrExpr() {
 
 ExprPtr Parser::parseLambdaExpr() {
     if (not matchToken(TokenKind::KeywordLambda)) {
-        return parseBooleanOrExpr();
+        auto expr = parseBooleanOrExpr();
+
+        if ((not linesChanged) && skipOptionalToken(TokenKind::KeywordIf)) {
+            auto temp = std::make_shared<IfExpr>(expr->location);
+            temp->cond = parseBooleanOrExpr();
+            temp->thenValue = expr;
+
+            skipRequiredToken(TokenKind::KeywordElse);
+
+            temp->elseValue = parseBooleanOrExpr();
+            expr = temp;
+        }
+
+        return expr;
     }
 
     auto expr = std::make_shared<LambdaExpr>(currentLocation);
