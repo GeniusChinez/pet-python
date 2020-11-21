@@ -249,6 +249,19 @@ StmtPtr Parser::parseStmt(uint64_t indentation) {
 
             stmt->targetList = std::move(exprs);
             stmt->value = parseExpr();
+
+            if (skipOptionalToken(TokenKind::Comma)) {
+                auto tupleExpr = std::make_shared<TupleDisplayExpr>(stmt->value->location);
+                tupleExpr->items.push_back(stmt->value);
+                tupleExpr->items.push_back(parseExpr());
+
+                while (skipOptionalToken(TokenKind::Comma)) {
+                    tupleExpr->items.push_back(parseExpr());
+                }
+
+                stmt->value = tupleExpr;
+            }
+
             skipOptionalToken(TokenKind::Semicolon);
 
             return stmt;
