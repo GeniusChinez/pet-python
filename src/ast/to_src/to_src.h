@@ -64,6 +64,7 @@ private:
     void transformUnaryExpr(const UnaryExpr&);
     void transformBinaryExpr(const BinaryExpr&);
     void transformLambdaExpr(const LambdaExpr&);
+    void transformIfExpr(const IfExpr&);
 
     void transformTarget(const TargetPtr);
     void transformImportItem(const ImportItem&);

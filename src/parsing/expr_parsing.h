@@ -37,14 +37,24 @@ ExprPtr Parser::parseTopExpr() {
     }
     case TokenKind::ConstantMultilineString: {
         auto expr = std::make_shared<StringLiteralExpr>(currentLocation);
-        expr->value = currentToken.value.substr(3, currentToken.value.size() - 6);
-        fetchToken();
+        expr->value = "";
+
+        do {
+            expr->value += currentToken.value.substr(3, currentToken.value.size() - 6);
+            fetchToken();
+        } while (matchToken(TokenKind::ConstantString) || matchToken(TokenKind::ConstantMultilineString));
+
         return expr;
     }
     case TokenKind::ConstantString: {
         auto expr = std::make_shared<StringLiteralExpr>(currentLocation);
-        expr->value = currentToken.value.substr(1, currentToken.value.size() - 2);
-        fetchToken();
+        expr->value = "";
+
+        do {
+            expr->value += currentToken.value.substr(1, currentToken.value.size() - 2);
+            fetchToken();
+        } while (matchToken(TokenKind::ConstantString) || matchToken(TokenKind::ConstantMultilineString));
+
         return expr;
     }
     case TokenKind::ConstantBooleanTrue: {

@@ -40,6 +40,12 @@ void PythonAstTransformer::transformExpr(ExprPtr expr) {
         );
         break;
     }
+    case ExprKind::If: {
+        transformIfExpr(
+            *std::static_pointer_cast<IfExpr>(expr)
+        );
+        break;
+    }
     case ExprKind::ListDisplay: {
         transformListDisplayExpr(
             *std::static_pointer_cast<ListDisplayExpr>(expr)
@@ -285,6 +291,14 @@ void PythonAstTransformer::transformDictItem(const DictItem& item) {
         addText(" ");
         transformComprehensionFor(*(item.compFor));
     }
+}
+
+void PythonAstTransformer::transformIfExpr(const IfExpr& expr) {
+    transformExpr(expr.cond);
+    addText(" if ");
+    transformExpr(expr.thenValue);
+    addText(" else ");
+    transformExpr(expr.elseValue);
 }
 
 void PythonAstTransformer::transformDictDisplayExpr(
